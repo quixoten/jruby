@@ -251,7 +251,7 @@ public class StringIO extends RubyObject implements EncodingCapable {
 
     @JRubyMethod(name = {"isatty", "tty?"})
     public IRubyObject strioFalse(ThreadContext context) {
-        return context.runtime.getFalse();
+        return context.fals;
     }
 
     @JRubyMethod(name = {"pid", "fileno"})
@@ -470,7 +470,7 @@ public class StringIO extends RubyObject implements EncodingCapable {
     public IRubyObject getc(ThreadContext context) {
         checkReadable();
 
-        if (isEndOfString()) return context.runtime.getNil();
+        if (isEndOfString()) return context.nil;
 
         StringIOData ptr = this.ptr;
 
@@ -488,7 +488,7 @@ public class StringIO extends RubyObject implements EncodingCapable {
     public IRubyObject getbyte(ThreadContext context) {
         checkReadable();
 
-        if (isEndOfString()) return context.runtime.getNil();
+        if (isEndOfString()) return context.nil;
 
         int c;
         StringIOData ptr = this.ptr;
@@ -1028,7 +1028,7 @@ public class StringIO extends RubyObject implements EncodingCapable {
     @JRubyMethod(name = "sync")
     public IRubyObject sync(ThreadContext context) {
         checkInitialized();
-        return context.runtime.getTrue();
+        return context.tru;
     }
 
     // only here for the fake-out class in org.jruby

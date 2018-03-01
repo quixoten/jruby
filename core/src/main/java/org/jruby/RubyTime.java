@@ -576,7 +576,7 @@ public class RubyTime extends RubyObject {
     @Override
     public IRubyObject op_equal(ThreadContext context, IRubyObject other) {
         if (other.isNil()) {
-            return context.runtime.getFalse();
+            return context.fals;
         }
         if (other instanceof RubyTime) {
             return context.runtime.newBoolean(cmp((RubyTime) other) == 0);
@@ -728,7 +728,7 @@ public class RubyTime extends RubyObject {
             return context.runtime.newBoolean(RubyNumeric.fix2int(invokedynamic(context, this, OP_CMP, other)) == 0);
         }
 
-        return context.runtime.getFalse();
+        return context.fals;
     }
 
     @JRubyMethod(name = "<=>", required = 1)

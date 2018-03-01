@@ -447,7 +447,7 @@ public class RubyFile extends RubyIO implements EncodingCapable {
 
     @JRubyMethod(name = {"path", "to_path"})
     public IRubyObject path(ThreadContext context) {
-        IRubyObject newPath = context.runtime.getNil();
+        IRubyObject newPath = context.nil;
         final String path = getPath();
         if (path != null) {
             newPath = context.runtime.newString(path);

@@ -319,7 +319,7 @@ public class RubyMethod extends AbstractRubyMethod {
             return runtime.newArray(runtime.newString(filename), runtime.newFixnum(getLine()));
         }
 
-        return context.runtime.getNil();
+        return context.nil;
     }
 
     public String getFilename() {

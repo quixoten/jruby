@@ -586,7 +586,7 @@ public class RubyDir extends RubyObject {
 
     @JRubyMethod(name = {"path", "to_path"})
     public IRubyObject path(ThreadContext context) {
-        return path == null ? context.runtime.getNil() : path.strDup(context.runtime);
+        return path == null ? context.nil : path.strDup(context.runtime);
     }
 
     @JRubyMethod

@@ -658,17 +658,17 @@ public class RubyFixnum extends RubyInteger implements Constantizable {
     @Override
     public RubyBoolean odd_p(ThreadContext context) {
         if(value%2 != 0) {
-            return context.runtime.getTrue();
+            return context.tru;
         }
-        return context.runtime.getFalse();
+        return context.fals;
     }
 
     @Override
     public RubyBoolean even_p(ThreadContext context) {
         if(value%2 == 0) {
-            return context.runtime.getTrue();
+            return context.tru;
         }
-        return context.runtime.getFalse();
+        return context.fals;
     }
 
     public IRubyObject pred(ThreadContext context) {

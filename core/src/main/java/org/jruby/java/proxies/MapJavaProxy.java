@@ -308,9 +308,9 @@ public final class MapJavaProxy extends ConcreteJavaProxy {
 
         @Override // re-invent @JRubyMethod(name = "any?")
         public IRubyObject any_p(ThreadContext context, Block block) {
-            if (isEmpty()) return context.runtime.getFalse();
+            if (isEmpty()) return context.fals;
 
-            if (!block.isGiven()) return context.runtime.getTrue();
+            if (!block.isGiven()) return context.tru;
 
             if (block.getSignature().arityValue() > 1) {
                 return any_p_i_fast(context, block);

@@ -1190,12 +1190,12 @@ public class RubyBigDecimal extends RubyNumeric {
             IRubyObject cmp = callCoerced(context, sites(context).op_cmp, arg, false);
             if ( cmp.isNil() ) { // arg.coerce failed
                 if (op == '*') return context.nil;
-                if (op == '=' || isNaN()) return context.runtime.getFalse();
+                if (op == '=' || isNaN()) return context.fals;
                 throw context.runtime.newArgumentError("comparison of BigDecimal with "+ errMessageType(context, arg) +" failed");
             }
             e = RubyNumeric.fix2int(cmp);
         } else {
-            if (isNaN() || rb.isNaN()) return (op == '*') ? context.nil : context.runtime.getFalse();
+            if (isNaN() || rb.isNaN()) return (op == '*') ? context.nil : context.fals;
 
             e = infinitySign != 0 || rb.infinitySign != 0 ? infinitySign - rb.infinitySign : value.compareTo(rb.value);
         }
@@ -1393,7 +1393,7 @@ public class RubyBigDecimal extends RubyNumeric {
 
     @JRubyMethod(name = "infinite?")
     public IRubyObject infinite_p(ThreadContext context) {
-        return infinitySign == 0 ? context.runtime.getNil() : context.runtime.newFixnum(infinitySign);
+        return infinitySign == 0 ? context.nil : context.runtime.newFixnum(infinitySign);
     }
 
     @JRubyMethod
