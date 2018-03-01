@@ -217,7 +217,7 @@ class Date
   ABBR_DAYNAMES = %w(Sun Mon Tue Wed Thu Fri Sat)
 
   [MONTHNAMES, DAYNAMES, ABBR_MONTHNAMES, ABBR_DAYNAMES].each do |xs|
-    xs.each{|x| x.freeze unless x.nil?}.freeze
+    xs.each { |x| x.freeze unless x.nil? }.freeze
   end
 
   class Infinity < Numeric # :nodoc:
@@ -290,7 +290,6 @@ class Date
   GREGORIAN = -Infinity.new
 
   def self.rewrite_frags(elem) # :nodoc:
-    elem ||= {}
     if seconds = elem[:seconds]
       d,   fr = seconds.divmod(86400)
       h,   fr = fr.divmod(3600)
@@ -321,12 +320,11 @@ class Date
     [nil,         [:cwyear, :cweek, :wday]],
     [nil,         [:year, :wnum0, :cwday]],
     [nil,         [:year, :wnum1, :cwday]]
-  ]
+  ].freeze
+  private_constant :COMPLETE_FRAGS
 
   def self.complete_frags(elem) # :nodoc:
-    g = COMPLETE_FRAGS.max_by { |kind, fields|
-      fields.count { |field| elem.key? field }
-    }
+    g = COMPLETE_FRAGS.max_by { |_, fields| fields.count { |field| elem.key? field } }
     c = g[1].count { |field| elem.key? field }
 
     if c == 0 and [:hour, :min, :sec].none? { |field| elem.key? field }
@@ -397,7 +395,6 @@ class Date
     end
 
     year = elem[:year]
-
     if year and yday = elem[:yday] and
         jd = _valid_ordinal?(year, yday, sg)
       return jd
@@ -435,8 +432,8 @@ class Date
 
   def self.new_by_frags(elem, sg) # :nodoc:
     # fast path
-    if elem and !elem.key?(:jd) and !elem.key?(:yday) and
-        year = elem[:year] and mon = elem[:mon] and mday = elem[:mday]
+    if elem && !elem.key?(:jd) && !elem.key?(:yday) &&
+        year = elem[:year] && mon = elem[:mon] && mday = elem[:mday]
       return Date.civil(year, mon, mday, sg)
     end
 
@@ -465,8 +462,7 @@ class Date
   # An ArgumentError will be raised if +str+ cannot be
   # parsed.
   def self.strptime(str='-4712-01-01', fmt='%F', sg=ITALY)
-    elem = _strptime(str, fmt)
-    new_by_frags(elem, sg)
+    new_by_frags(_strptime(str, fmt), sg)
   end
 
   # Create a new Date object by parsing from a String,
@@ -770,17 +766,7 @@ class DateTime < Date
     new_by_frags(elem, sg)
   end
 
-end
-
-class Date
-
-  def to_time
-    Time.local(year, mon, mday)
-  end
-
-end
-
-class DateTime < Date
+  # adjust superclass (Date) methods :
 
   public :hour, :min, :sec, :sec_fraction, :zone, :offset, :new_offset,
          :minute, :second, :second_fraction
